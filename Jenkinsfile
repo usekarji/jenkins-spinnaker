@@ -1,4 +1,5 @@
 pipeline {
+    def app
     agent any
        triggers {
         pollSCM "* * * * *"
@@ -28,7 +29,8 @@ pipeline {
             steps {
                 echo '=== Building Petclinic Docker Image ==='
                 script {
-                          sh "docker build -t quick-startimage ."
+                         app = docker.build("usekarji/petclinic")
+
                 }	    
             }
         }
@@ -39,11 +41,9 @@ pipeline {
             steps {
                 echo '=== Pushing Petclinic Docker Image ==='
                 script {
-                    //GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                    //SHORT_COMMIT = "${GIT_COMMIT_HASH[0..7]}"
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
-                    //    app.push("$SHORT_COMMIT")
-                        app.push("latest")
+                    app.push("${env.BUILD_NUMBER}")            
+                    app.push("latest")
                     }
                 }
             }
