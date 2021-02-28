@@ -29,7 +29,7 @@ pipeline {
                 echo '=== Building Petclinic Docker Image ==='
                 script {
                           sh "docker build -t quick-startimage ."
-                }	                }
+                }	    
             }
         }
         stage('Push Docker Image') {
