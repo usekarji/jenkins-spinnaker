@@ -28,8 +28,8 @@ pipeline {
             steps {
                 echo '=== Building Petclinic Docker Image ==='
                 script {
-                    app = docker.build("ibuchh/petclinic-spinnaker-jenkins")
-                }
+                          sh "docker build -t quick-startimage ."
+                }	                }
             }
         }
         stage('Push Docker Image') {
