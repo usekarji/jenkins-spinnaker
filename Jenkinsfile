@@ -1,5 +1,4 @@
 pipeline {
-    def app
     agent any
        triggers {
         pollSCM "* * * * *"
